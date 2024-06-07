@@ -3,6 +3,10 @@
 #include "certs.h"
 #include "secrets.h"
 
+
+#define DEVICE_NAME "<DEVICE_NAME>" 
+#define ROOT_TOPIC "/<ROOT_TOPIC>/" 
+
 #ifndef DEVICE_NAME 
 #error "Please include the correct certs.h file."
 #endif
@@ -58,14 +62,11 @@ void onDeviceShadowUpdate(Shadow current, Shadow last) {
 
 }
 
-const char* WIFI_SSID     = SECRET_SSID;
-const char* WIFI_PASSWORD = SECRET_PASS;
-
 void setup() {
     Serial.begin(115200);
 
     // Fill in your Wi-Fi credentials here to connect to the internet:
-    WiFi.begin(SECRET_SSID, SECRET_PASS);
+    WiFi.begin(<SSID>, <PASSWORD>);
 
     while (WiFi.status() != WL_CONNECTED) {
         delay(500);
