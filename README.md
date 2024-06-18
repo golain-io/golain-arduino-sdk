@@ -53,32 +53,28 @@ Refer to Example Projects for more details.
 
 1. **Setting up the essentials**
     - Download the golain-arduino-sdk on your machine.
-    - Select the src folder in golain-arduino-sdk and rename it to `golain`.
-    - Now place that golain folder in libraries folder of your Arduino IDE.
+    - Now place that sdk folder in libraries folder of your Arduino IDE.
 
 
 4. **Get device credentials from [Golain Console](https://web.golain.io)**
     - Login to Golain Console and navigate to the `Devices` section.
     - Click on `Add Device` and follow the instructions.
-    - Download the PlatformIO `certs.h` file and place it in your project's `include` folder.
-    - Also, download the `project template` and place its contents in the `src` folder.
+    - Download the `certs.h` file and place it in your project's `main` folder.
+    - Also, download the `project template` and place its contents in the `main` folder.
 
     ![template](assets/template.png)
 
 5. **Final steps**
-    - Open `main.ino` file provided in the *Arduino Project Template* copy the `certs.h` file and place it with the headers in the `golain` library of your Arduino libraries.
+    - Open `main.ino` file and just ensure all the important files are present in the `main` folder. These include certs, shadow and data points.
 
-6. **Install dependencies**
-    - From the quick access of PIO Home, go to libraries and install the following dependencies: `golain-platformio-sdk`.
-
-7. **Verify your ESP32 board connection**
+6. **Verify your ESP32 board connection**
     - Ensure your ESP32 board appears on the `Serial Port` from the `device` section
 
-8. **Build and flash the program**
+7. **Build and flash the program**
     - Once all dependencies and files are placed and modified, build the program. Your build will be flashed onto the board.
 
-9. **Verify device status**
-    - If everything is done correctly, you should be able to see your device online on the [Golain Console](https://web.golain.io).
+8. **Verify device status**
+    - If everything is done correctly, you should be able to see your device online on the [Golain Console](https://web.golain.io). And if you have included any `data points`, you will be able to see its logs in the definations section on your [Golain Console](https://web.golain.io).
 
 
 ## Contributing
