@@ -1,31 +1,28 @@
 
-
+// import certs - this contains all the metadata of a device
 #include "certs.h"
-#include "secrets.h"
 
-
-#define DEVICE_NAME "<DEVICE_NAME>" 
-#define ROOT_TOPIC "/<ROOT_TOPIC>/" 
-
-#ifndef DEVICE_NAME 
-#error "Please include the correct certs.h file."
-#endif
-
+//include shadow.pb - this contains your device default shadow
 #include "shadow.pb.h"
 
+//imoport all the data point headers below this. (example)
+#include "UltrasonicSensorDistance.pb.h"
 
 #include <Arduino.h>
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
 
 // NOTE: Import everything else before Golain.h
-#include "golain.h"
+#include "Golain.h"
 
 
 
 
-Golain golain(GOLAIN_CERT_CA, GOLAIN_DEVICE_CERT, GOLAIN_PRIVATE_KEY);
+Golain golain(DEVICE_NAME, ROOT_TOPIC, GOLAIN_CERT_CA, GOLAIN_DEVICE_CERT, GOLAIN_PRIVATE_KEY);
 
+
+GolainDataPoint IUltrasonicSensorDistance;
+UltrasonicSensor ultrasonicSensorDistanceData;
 
 
 
@@ -55,18 +52,14 @@ Golain golain(GOLAIN_CERT_CA, GOLAIN_DEVICE_CERT, GOLAIN_PRIVATE_KEY);
 **
 *************************************************************************************************/
 void onDeviceShadowUpdate(Shadow current, Shadow last) {
-    if(current.on != last.on){
-      Serial.println("ON status changed");
-    }
-    Serial.println("device shadow updated form web");
-
+    Serial.println("Device shadow updated");
 }
 
 void setup() {
     Serial.begin(115200);
 
     // Fill in your Wi-Fi credentials here to connect to the internet:
-    WiFi.begin(<SSID>, <PASSWORD>);
+    WiFi.begin("Quoppo Ventures ", "Quopeupp");
 
     while (WiFi.status() != WL_CONNECTED) {
         delay(500);
@@ -77,6 +70,18 @@ void setup() {
 
     golain.setDeviceShadowCallback(&onDeviceShadowUpdate);
 
+    
+    Result r;
+    r = golain.registerDataPoint("UltrasonicSensorDistance", &UltrasonicSensor_msg, UltrasonicSensor_size);
+    
+    if (r.err) {
+        Serial.println("Failed to register data point: UltrasonicSensorDistance");
+    } else {
+        Serial.println("Registered data point: UltrasonicSensorDistance");
+        IUltrasonicSensorDistance = r.value;
+    }
+
+    
     
 
     golain.begin();
@@ -127,11 +132,52 @@ void loop() {
     **********************************************************************************************/
 
     if (millis() % 5000 == 0) {
-        GlobalShadow.Nurse = 10;
+        GlobalShadow.buttonPressedCount = 10;
         golain.updateShadow();
     }
 
     delay(1000);
+
+    
+    
+
+
+    /************************************ Using Device Data Points ************************************
+    ** When you post data to a Golain Data Point, it is stored in a time-series database and can be 
+    ** used to plot various kinds of charts in your dashboard!
+    ** 
+    ** Just update your data-point variable and call golain.postData(GolainDataPoint, &dataPointVariable).
+    ** The first argument is of GolainDataPoint type and the 2nd one is a reference to your data-point
+    ** variable.
+    **
+    ** For Example:
+    ** golain.postData(Icoffee, &coffeeData);
+    **
+    ** 
+    ** NOTE: You can either post-and-forget your data as shown above, or do a check to confirm that
+    ** your data was posted successfully:
+    ** if (golain.postData(IUltrasonicSensorDistance, &ultrasonicSensorDistanceData).err != GOLAIN_OK){
+    **     Serial.println("Failed to post data for Data Point: UltrasonicSensorDistance");
+    ** } else {
+    **     Serial.println("Posted data for Data Point: UltrasonicSensorDistance");
+    ** }
+    **  
+    **********************************************************************************************/
+
+
+
+    ultrasonicSensorDistanceData.distanceCm = 10;
+
+    // post-and-forget:
+    golain.postData(IUltrasonicSensorDistance, &ultrasonicSensorDistanceData);
+
+
+    // Confirm post data:
+    if (golain.postData(IUltrasonicSensorDistance, &ultrasonicSensorDistanceData).err != GOLAIN_OK) {
+        Serial.println("Failed to post data for Data Point: ULTRASONICSENSORDISTANCE");
+    } else {
+        Serial.println("Posted data for Data Point: ULTRASONICSENSORDISTANCE");
+    }
 
     
 }
