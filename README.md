@@ -40,8 +40,10 @@ Refer to Example Projects for more details.
 1. **Arduino IDE**
     - Download and install Arduino IDE from [here](https://www.arduino.cc/en/software) for your operating system.
 
-2. **Libraries for Arduino IDE**
-    - Install `Arduino_Uno_WiFi_Dev_Ed_Library` by Arduino library and `ArduinoJson` by Benoit library from the library section. You can access it from the menu bar < Tools < Manage Libraries... section.
+2. **Libraries dependencies for Arduino IDE**
+    - Install `Arduino_Uno_WiFi_Dev_Ed_Library` by Arduino and `ArduinoJson` by Benoit from the library section. You can access it from the menu bar < Tools < Manage Libraries... section.
+    - Also you need 2 more libraries installed, `pubsubclient` by knolleary and `nanopb` by nanopb. You can find both the download links here: [pubsubclient](https://github.com/knolleary/pubsubclient) and [nanopb](https://github.com/nanopb/nanopb). Once downladed add these  to the libraies folder.
+
 
 2. **Boards for Arduino IDE**
     - Install `esp32` by Espressif board from the *BOARDS MANAGER* section. You can access it from the menu bar < Tools < Board: < Boards Manager section.
