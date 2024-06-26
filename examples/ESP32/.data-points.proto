@@ -1,0 +1,10 @@
+syntax="proto3";
+
+message aqiSensor{
+    int32 id = 1;
+    int32 iaq = 2;
+    int32 temperature = 3;
+    int32 humidity = 4;
+    int32 co2 = 5;
+    int32 voc = 6;
+}

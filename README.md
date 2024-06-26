@@ -77,8 +77,11 @@ Refer to Example Projects for more details.
     - If everything is done correctly, you should be able to see your device online on the [Golain Console](https://web.golain.io). And if you have included any `data points`, you will be able to see its logs in the definations section on your [Golain Console](https://web.golain.io).
 
 
+## Example Project
+you can refer this [shadow example](assets/shadow_example.md) and [data-points example](assets/data-points_example.md) to try on an example on your own
+
 ## Contributing
-We welcome contributions to enhance the Golain PlatformIO SDK. Please submit pull requests to the GitHub repository.
+We welcome contributions to enhance the Golain Arduino SDK. Please submit pull requests to the GitHub repository.
 
 ## Support
 For support and troubleshooting, please visit the Golain [support page](https://scheduler-web-development.azo.dev/consumers/event/166/golain-solutions) or contact us via [email](ishan@golain.io).
